@@ -1,7 +1,8 @@
+import { apiOrigin } from "./api.js";
 import { useEffect, useState } from "react";
 import "./ShipSystems.css";
 
-const BASE = "http://127.0.0.1:8000/api/ship";
+const BASE = `${apiOrigin}/api/ship`;
 
 export default function ShipSystems({ onClose, onUpdate }) {
   const [data, setData] = useState(null);

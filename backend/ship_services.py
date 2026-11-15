@@ -1,10 +1,13 @@
 """Local spacecraft service simulator. No physical hardware is connected."""
 
+import os
+import tempfile
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
-DB = Path(__file__).resolve().parent / "ship_demo.sqlite3"
+data_dir = Path(tempfile.gettempdir()) if os.getenv("VERCEL") else Path(__file__).resolve().parent
+DB = data_dir / "ship_demo.sqlite3"
 MEDICAL_KIT = [
     {"name": "Throat lozenges", "quantity": 12, "use": "May soothe throat irritation or a mild cough; check crew medical guidance before use."},
 ]

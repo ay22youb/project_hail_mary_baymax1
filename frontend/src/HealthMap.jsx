@@ -1,3 +1,4 @@
+import { apiOrigin } from "./api.js";
 import { useEffect, useState } from "react";
 import "./HealthMap.css";
 
@@ -39,7 +40,7 @@ export default function HealthMap({ records }) {
   const [selected, setSelected] = useState("chest");
   const [ship, setShip] = useState(null);
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/ship/status").then(response => response.ok ? response.json() : null).then(setShip).catch(() => {});
+    fetch(`${apiOrigin}/api/ship/status`).then(response => response.ok ? response.json() : null).then(setShip).catch(() => {});
   }, []);
   const record = records.at(-1);
   const area = AREAS.find(item => item.id === selected);
