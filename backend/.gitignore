@@ -1,0 +1,4 @@
+.env
+.venv/
+__pycache__/
+ship_demo.sqlite3

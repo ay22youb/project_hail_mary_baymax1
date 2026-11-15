@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+*.sqlite3*
+*.log
+*.err
+.venv/
+.pip-tmp/
+__pycache__/
+node_modules/
+dist/
+.vscode/
