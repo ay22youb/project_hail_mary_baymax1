@@ -81,12 +81,17 @@ function Baymax({ mode }) {
     });
     return clone;
   }, [scene]);
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     if (!ref.current) return;
     const t = clock.elapsedTime;
     ref.current.position.y = Math.sin(t * 1.5) * .06;
-    ref.current.rotation.y = Math.sin(t * .5) * .05;
-    ref.current.scale.setScalar(mode === "listening" ? 1.04 : 1 + (mode === "speaking" ? Math.sin(t * 8) * .025 : 0));
+    const pose = ref.current.rotation;
+    const blend = 1 - Math.exp(-5 * delta);
+    const pitch = mode === "listening" ? .09 : mode === "speaking" ? .065 * Math.sin(t * 4) : 0;
+    const tilt = mode === "thinking" ? .11 : mode === "listening" ? -.055 : .016 * Math.sin(t);
+    pose.x += (pitch - pose.x) * blend;
+    pose.z += (tilt - pose.z) * blend;
+    pose.y += (Math.sin(t * .65) * (mode === "speaking" ? .14 : .05) - pose.y) * blend;
   });
   return <group ref={ref}><primitive object={clean} /></group>;
 }
